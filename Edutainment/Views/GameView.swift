@@ -94,6 +94,9 @@ struct GameView: View {
                 Spacer()
             }
             .padding(.vertical, 100)
+            .id(questionIndex)
+            .transition(.move(edge: .trailing))
+            .animation(.bouncy(duration: 0.5), value: questionIndex)
             
         // GAME OVER SCREEN
         } else {
