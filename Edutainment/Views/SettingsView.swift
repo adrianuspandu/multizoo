@@ -25,6 +25,7 @@ struct SettingsView: View {
             VStack {
                 Image(randomAnimal())
                     .resizable()
+                    .scaledToFit()
                     .frame(width: 100, height: 100)
                     .padding(.bottom, -20)
                 Text("MULTIZOO")
