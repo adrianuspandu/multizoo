@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "narwhal.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "elephant.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },

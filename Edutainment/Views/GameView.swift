@@ -98,7 +98,7 @@ struct GameView: View {
             .transition(.move(edge: .trailing))
             .animation(.bouncy(duration: 0.5), value: questionIndex)
             
-        // GAME OVER SCREEN
+            // GAME OVER SCREEN
         } else {
             VStack {
                 Text("GAME OVER")
@@ -172,15 +172,19 @@ struct GameView: View {
             if questionIndex < questions.count - 1 {
                 questionIndex += 1
             } else {
-                isGameOver = true
+                withAnimation(.smooth(duration: 2)) {
+                    isGameOver = true
+                }
             }
         }
     }
     
     func restartGame() {
+        
         questionIndex = 0
         score = 0
         isGameOver = false
+        
         
         populateQuestions(selectedTable, amountOfQuestionsSelected)
     }

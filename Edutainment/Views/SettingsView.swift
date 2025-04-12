@@ -23,8 +23,10 @@ struct SettingsView: View {
         VStack(spacing: 40) {
             
             VStack {
-                Image("elephant")
-                    .padding(.bottom, -40)
+                Image(randomAnimal())
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .padding(.bottom, -20)
                 Text("MULTIZOO")
                     .font(.custom("Chewy-Regular", size: 64))
                     .kerning(5.8)
