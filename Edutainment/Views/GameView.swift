@@ -16,6 +16,7 @@ struct GameView: View {
     @Binding var amountOfQuestionsSelected: Int
     
     @State var score: Int = 0
+    @State var showFeedback: Bool = false
     
     private var round: Int {
         questionIndex + 1
@@ -31,6 +32,8 @@ struct GameView: View {
     let generateNewQuestion: (Int, Int) -> Question
     
     var body: some View {
+        
+        // IN GAME SCREEN
         if !isGameOver {
             VStack(alignment: .center) {
                 Text("SCORE: \(score) / \(questionIndex)")
@@ -67,10 +70,15 @@ struct GameView: View {
                         Button("\(answer)") {
                             submitAnswer(answer, toQuestion: currentQuestion)
                         }
+                        .disabled(showFeedback)
                         .font(.custom("Chewy-Regular", size: 40))
-                        .padding(.horizontal, 48)
+                        .frame(width: 200)
                         .padding(.vertical, 16)
-                        .background(.blue)
+                        .background(
+                            showFeedback
+                            ? (answer == currentQuestion.correctAnswer ? Color.green : Color.red)
+                            : Color.blue
+                        )
                         .foregroundStyle(.white)
                         .cornerRadius(40)
                         .overlay(
@@ -78,6 +86,8 @@ struct GameView: View {
                                 .inset(by: 1)
                                 .stroke(.black, lineWidth: 2)
                         )
+                        .scaleEffect(showFeedback ? 1.1 : 1)
+                        .animation(.spring(duration: 0.5), value: showFeedback)
                     }
                 }
                 
@@ -85,6 +95,7 @@ struct GameView: View {
             }
             .padding(.vertical, 100)
             
+        // GAME OVER SCREEN
         } else {
             VStack {
                 Text("GAME OVER")
@@ -147,14 +158,19 @@ struct GameView: View {
     }
     
     func submitAnswer(_ answer: Int, toQuestion question: Question) {
-        if answer == currentQuestion.correctAnswer {
-            score += 1
-        }
+        showFeedback = true
         
-        if questionIndex < questions.count - 1 {
-            questionIndex += 1
-        } else {
-            isGameOver = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            showFeedback = false
+            if answer == currentQuestion.correctAnswer {
+                score += 1
+            }
+            
+            if questionIndex < questions.count - 1 {
+                questionIndex += 1
+            } else {
+                isGameOver = true
+            }
         }
     }
     
