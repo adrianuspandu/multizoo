@@ -8,6 +8,7 @@
 let animalNames = [
     "bear",
     "buffalo",
+    "chick",
     "chicken",
     "cow",
     "crocodile",
@@ -20,8 +21,6 @@ let animalNames = [
     "gorilla",
     "hippo",
     "horse",
-    "kangaroo",
-    "lion",
     "monkey",
     "moose",
     "narwhal",
